@@ -4,8 +4,11 @@ require __DIR__ . '/vendor/autoload.php';
 use GuzzleHttp\Client;
 use Dotenv\Dotenv;
 
-$dotenv = Dotenv::createImmutable(__DIR__);
-$dotenv->safeLoad();
+// Try to load .env if exists, otherwise use environment variables
+if (file_exists(__DIR__ . '/.env')) {
+    $dotenv = Dotenv::createImmutable(__DIR__);
+    $dotenv->safeLoad();
+}
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $client = new Client();
